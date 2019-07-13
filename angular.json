@@ -1,0 +1,217 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "ngrx-workshop-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/ngrx-workshop-app",
+      "sourceRoot": "apps/ngrx-workshop-app/src",
+      "prefix": "ngrx-workshop-app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ngrx-workshop-app",
+            "index": "apps/ngrx-workshop-app/src/index.html",
+            "main": "apps/ngrx-workshop-app/src/main.ts",
+            "polyfills": "apps/ngrx-workshop-app/src/polyfills.ts",
+            "tsConfig": "apps/ngrx-workshop-app/tsconfig.app.json",
+            "assets": [
+              "apps/ngrx-workshop-app/src/favicon.ico",
+              "apps/ngrx-workshop-app/src/assets"
+            ],
+            "styles": ["apps/ngrx-workshop-app/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngrx-workshop-app/src/environments/environment.ts",
+                  "with": "apps/ngrx-workshop-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngrx-workshop-app:build",
+            "proxyConfig": "apps/ngrx-workshop-app/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngrx-workshop-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngrx-workshop-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ngrx-workshop-app/tsconfig.app.json",
+              "apps/ngrx-workshop-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ngrx-workshop-app/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ngrx-workshop-app/jest.config.js",
+            "tsConfig": "apps/ngrx-workshop-app/tsconfig.spec.json",
+            "setupFile": "apps/ngrx-workshop-app/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "ngrx-workshop-app-e2e": {
+      "root": "apps/ngrx-workshop-app-e2e",
+      "sourceRoot": "apps/ngrx-workshop-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ngrx-workshop-app-e2e/cypress.json",
+            "tsConfig": "apps/ngrx-workshop-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ngrx-workshop-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngrx-workshop-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/ngrx-workshop-app-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**", "!apps/ngrx-workshop-app-e2e/**"]
+          }
+        }
+      }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api/tsconfig.app.json",
+              "apps/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "tsConfig": "apps/api/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "api-interface": {
+      "root": "libs/api-interface",
+      "sourceRoot": "libs/api-interface/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api-interface/tsconfig.lib.json",
+              "libs/api-interface/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api-interface/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api-interface/jest.config.js",
+            "tsConfig": "libs/api-interface/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "ngrx-workshop-app"
+}
