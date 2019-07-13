@@ -1,8 +1,5 @@
-<div style="text-align:center">
-  <h1>Welcome to ngrx-workshop-app!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png"
-  />
+<app-top-bar></app-top-bar>
+
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
-<div>Message: {{ hello$ | async | json }}</div>
