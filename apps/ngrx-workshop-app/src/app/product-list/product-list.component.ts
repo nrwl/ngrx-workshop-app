@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '@ngrx-workshop-app/api-interface';
+import { ProductService } from '@ngrx-workshop-app/product-data-access';
 import { Observable } from 'rxjs';
-import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -11,10 +11,10 @@ import { CartService } from '../cart.service';
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
 
-  constructor(private cartService: CartService) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.products$ = this.cartService.getProducts();
+    this.products$ = this.productService.getProducts();
   }
 
   share() {
@@ -25,9 +25,3 @@ export class ProductListComponent implements OnInit {
     window.alert('You will be notified when the product goes on sale');
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

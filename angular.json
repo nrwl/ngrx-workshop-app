@@ -195,6 +195,87 @@
           }
         }
       }
+    },
+    "cart-data-access": {
+      "projectType": "library",
+      "root": "libs/cart-data-access",
+      "sourceRoot": "libs/cart-data-access/src",
+      "prefix": "ngrx-workshop-app",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/cart-data-access/tsconfig.lib.json",
+              "libs/cart-data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/cart-data-access/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/cart-data-access/jest.config.js",
+            "tsConfig": "libs/cart-data-access/tsconfig.spec.json",
+            "setupFile": "libs/cart-data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "product-data-access": {
+      "projectType": "library",
+      "root": "libs/product-data-access",
+      "sourceRoot": "libs/product-data-access/src",
+      "prefix": "ngrx-workshop-app",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/product-data-access/tsconfig.lib.json",
+              "libs/product-data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/product-data-access/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/product-data-access/jest.config.js",
+            "tsConfig": "libs/product-data-access/tsconfig.spec.json",
+            "setupFile": "libs/product-data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "shipping-data-access": {
+      "projectType": "library",
+      "root": "libs/shipping-data-access",
+      "sourceRoot": "libs/shipping-data-access/src",
+      "prefix": "ngrx-workshop-app",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shipping-data-access/tsconfig.lib.json",
+              "libs/shipping-data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shipping-data-access/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shipping-data-access/jest.config.js",
+            "tsConfig": "libs/shipping-data-access/tsconfig.spec.json",
+            "setupFile": "libs/shipping-data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

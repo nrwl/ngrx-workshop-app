@@ -1,23 +1,44 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { Product, ShippingMethod } from '@ngrx-workshop-app/api-interface';
-import { AppService } from './app.service';
+import { CartService } from './cart.service';
+import { ProductService } from './product.service';
+import { ShippingService } from './shipping.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly cartService: CartService,
+    private readonly productService: ProductService,
+    private readonly shippingService: ShippingService
+  ) {}
 
   @Get('shipping')
   getShippingMethods(): ShippingMethod[] {
-    return this.appService.getShippingMethods();
+    return this.shippingService.getShippingMethods();
   }
 
   @Get('products')
   getProducts(): Product[] {
-    return this.appService.getProducts();
+    return this.productService.getProducts();
   }
 
   @Get('products/:productId')
   getProduct(@Param('productId') productId: string): Product {
-    return this.appService.getProduct(+productId);
+    return this.productService.getProduct(+productId);
+  }
+
+  @Get('cart')
+  getCartItems(): Product[] {
+    return this.cartService.getItems();
+  }
+
+  @Post('cart')
+  addToCart(@Body() product: Product): Product[] {
+    return this.cartService.addItem(product);
+  }
+
+  @Delete('cart')
+  checkout(): Product[] {
+    return this.cartService.checkout();
   }
 }

@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { CartDataAccessModule } from '@ngrx-workshop-app/cart-data-access';
+import { ProductDataAccessModule } from '@ngrx-workshop-app/product-data-access';
+import { ShippingDataAccessModule } from '@ngrx-workshop-app/shipping-data-access';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductAlertsComponent } from './product-alerts/product-alerts.component';
@@ -30,7 +33,10 @@ import { TopBarComponent } from './top-bar/top-bar.component';
       { path: 'products/:productId', component: ProductDetailsComponent },
       { path: 'cart', component: CartComponent },
       { path: 'shipping', component: ShippingComponent }
-    ])
+    ]),
+    CartDataAccessModule,
+    ProductDataAccessModule,
+    ShippingDataAccessModule
   ],
   providers: [],
   bootstrap: [AppComponent]

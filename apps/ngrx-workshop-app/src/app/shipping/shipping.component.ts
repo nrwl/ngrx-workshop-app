@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
+import { ShippingService } from '@ngrx-workshop-app/shipping-data-access';
 import { Observable } from 'rxjs';
-import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-shipping',
@@ -11,13 +11,7 @@ import { CartService } from '../cart.service';
 export class ShippingComponent {
   shippingCosts$: Observable<ShippingMethod[]>;
 
-  constructor(private cartService: CartService) {
-    this.shippingCosts$ = this.cartService.getShippingPrices();
+  constructor(private shippingService: ShippingService) {
+    this.shippingCosts$ = this.shippingService.getShippingPrices();
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

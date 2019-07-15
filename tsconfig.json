@@ -16,7 +16,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngrx-workshop-app/api-interface": ["libs/api-interface/src/index.ts"]
+      "@ngrx-workshop-app/api-interface": ["libs/api-interface/src/index.ts"],
+      "@ngrx-workshop-app/cart-data-access": [
+        "libs/cart-data-access/src/index.ts"
+      ],
+      "@ngrx-workshop-app/product-data-access": [
+        "libs/product-data-access/src/index.ts"
+      ],
+      "@ngrx-workshop-app/shipping-data-access": [
+        "libs/shipping-data-access/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

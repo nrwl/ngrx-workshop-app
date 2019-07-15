@@ -19,6 +19,15 @@
     },
     "api-interface": {
       "tags": []
+    },
+    "cart-data-access": {
+      "tags": []
+    },
+    "product-data-access": {
+      "tags": []
+    },
+    "shipping-data-access": {
+      "tags": []
     }
   }
 }
