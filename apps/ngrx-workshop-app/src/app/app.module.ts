@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { ProductsStateModule } from './shared/state/products';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     ),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    ProductsStateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

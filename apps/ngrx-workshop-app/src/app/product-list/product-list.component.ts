@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@ngrx-workshop-app/api-interface';
-import { ProductService } from '@ngrx-workshop-app/product-data-access';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromProducts from '../shared/state/products';
 
 @Component({
   selector: 'app-product-list',
@@ -9,12 +8,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products$: Observable<Product[]>;
+  products$ = this.store.select(fromProducts.getAllProducts);
 
-  constructor(private productService: ProductService) {}
+  constructor(private store: Store<{ products: fromProducts.State }>) {}
 
   ngOnInit() {
-    this.products$ = this.productService.getProducts();
+    this.store.dispatch(fromProducts.enterProductsPage());
   }
 
   share() {
