@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { exhaustMap, map, catchError } from 'rxjs/operators';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { ProductService } from '@ngrx-workshop-app/product-data-access';
 
 import * as ProductsActions from './products.actions';
@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class ProductsEffects {
-  @Effect() loadProducts$ = this.actions$.pipe(
+  loadProducts$ = createEffect(() => this.actions$.pipe(
     ofType(
       ProductsActions.enterProductsPage,
       ProductsActions.enterProductDetailsPage
@@ -25,7 +25,7 @@ export class ProductsEffects {
         )
       )
     )
-  );
+  ));
 
   constructor(
     private actions$: Actions,
