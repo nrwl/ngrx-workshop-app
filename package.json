@@ -28,6 +28,10 @@
   },
   "private": true,
   "dependencies": {
+    "@ngrx/store": "8.1.0",
+    "@ngrx/effects": "8.1.0",
+    "@ngrx/entity": "8.1.0",
+    "@ngrx/router-store": "8.1.0",
     "@nestjs/common": "^6.2.4",
     "@nestjs/core": "^6.2.4",
     "@nestjs/platform-express": "^6.2.4",
@@ -41,11 +45,12 @@
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/router": "^8.0.0",
     "core-js": "^2.5.4",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.5.2",
     "zone.js": "^0.9.1",
     "@nrwl/angular": "8.2.0"
   },
   "devDependencies": {
+    "@ngrx/store-devtools": "8.1.0",
     "jest-preset-angular": "7.0.0",
     "@nrwl/node": "8.2.0",
     "@nestjs/schematics": "^6.3.0",
