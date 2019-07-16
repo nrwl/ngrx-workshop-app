@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Product } from '@ngrx-workshop-app/api-interface';
-import { CartService } from '@ngrx-workshop-app/cart-data-access';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromCart from '../shared/state/cart';
 
 @Component({
   selector: 'app-cart',
@@ -10,17 +9,16 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  items$: Observable<Product[]>;
+  items$ = this.store.select(fromCart.getAllProductsInCart);
   checkoutForm: FormGroup;
 
   constructor(
-    private cartService: CartService,
+    private store: Store<{ cart: fromCart.State }>,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.items$ = this.cartService.getItems();
-
+    this.store.dispatch(fromCart.enterCartPage());
     this.checkoutForm = this.formBuilder.group({
       name: '',
       address: ''
@@ -28,10 +26,7 @@ export class CartComponent implements OnInit {
   }
 
   onSubmit(customerData) {
-    // Process checkout data here
-    console.warn('Your order has been submitted', customerData);
-
-    this.items$ = this.cartService.checkout();
+    this.store.dispatch(fromCart.checkout());
     this.checkoutForm.reset();
   }
 }
