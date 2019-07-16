@@ -6,19 +6,20 @@ import { RouterModule } from '@angular/router';
 import { CartDataAccessModule } from '@ngrx-workshop-app/cart-data-access';
 import { ProductDataAccessModule } from '@ngrx-workshop-app/product-data-access';
 import { ShippingDataAccessModule } from '@ngrx-workshop-app/shipping-data-access';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductAlertsComponent } from './product-alerts/product-alerts.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { CartStateModule } from './shared/state/cart';
+import { ProductsStateModule } from './shared/state/products';
 import { ShippingComponent } from './shipping/shipping.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { ProductsStateModule } from './shared/state/products';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ProductsStateModule } from './shared/state/products';
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
-    ProductsStateModule
+    ProductsStateModule,
+    CartStateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

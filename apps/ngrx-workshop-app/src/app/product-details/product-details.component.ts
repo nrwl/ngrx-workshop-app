@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CartService } from '@ngrx-workshop-app/cart-data-access';
-import { take, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import * as fromCart from '../shared/state/cart';
 import * as fromProducts from '../shared/state/products';
 
 @Component({
@@ -13,11 +13,7 @@ import * as fromProducts from '../shared/state/products';
 export class ProductDetailsComponent implements OnInit {
   product$ = this.store.select(fromProducts.getSelectedProduct);
 
-  constructor(
-    private store: Store<{}>,
-    private route: ActivatedRoute,
-    private cartService: CartService
-  ) {}
+  constructor(private store: Store<{}>, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap
@@ -30,14 +26,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(product) {
-    window.alert('Your product has been added to the cart!');
-
-    // subscribing here to trigger observable to fire
-    // take(1) to avoid memory leak
-
-    this.cartService
-      .addToCart(product)
-      .pipe(take(1))
-      .subscribe();
+    this.store.dispatch(fromCart.addToCart({ product }));
   }
 }
