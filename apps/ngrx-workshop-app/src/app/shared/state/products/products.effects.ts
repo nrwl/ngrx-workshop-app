@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, catchError } from 'rxjs/operators';
-import { Effect, Actions, ofType } from '@ngrx/effects';
 import { ProductService } from '@ngrx-workshop-app/product-data-access';
-
-import * as ProductsActions from './products.actions';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
+import { catchError, exhaustMap, map } from 'rxjs/operators';
+import * as ProductsActions from './products.actions';
 
 @Injectable()
 export class ProductsEffects {
-  @Effect() loadProducts$ = this.actions$.pipe(
-    ofType(
-      ProductsActions.enterProductsPage,
-      ProductsActions.enterProductDetailsPage
-    ),
-    exhaustMap(() =>
-      this.productsService.getProducts().pipe(
-        map(products => ProductsActions.loadProductsSuccess({ products })),
-        catchError(() =>
-          of(
-            ProductsActions.loadProductsFailure({
-              error: 'Unable to load products'
-            })
+  loadProducts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        ProductsActions.enterProductsPage,
+        ProductsActions.enterProductDetailsPage
+      ),
+      exhaustMap(() =>
+        this.productsService.getProducts().pipe(
+          map(products => ProductsActions.loadProductsSuccess({ products })),
+          catchError(() =>
+            of(
+              ProductsActions.loadProductsFailure({
+                error: 'Unable to load products'
+              })
+            )
           )
         )
       )
