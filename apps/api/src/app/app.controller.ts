@@ -34,7 +34,6 @@ export class AppController {
 
   @Post('cart')
   addToCart(@Body() product: Product): Product[] {
-    console.log(product);
     return this.cartService.addItem(product);
   }
 
