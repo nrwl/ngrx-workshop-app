@@ -12,5 +12,15 @@ describe('CartService', () => {
     service = app.get<CartService>(CartService);
   });
 
-  // TODO: Build out tests for each method
+  describe('getItems', () => {
+    it('should return expected items', () => {});
+  });
+
+  describe('addItem', () => {
+    it('should add the item and return all items in cart', () => {});
+  });
+
+  describe('checkout', () => {
+    it('should add remove all items from the cart and return an empty array', () => {});
+  });
 });
