@@ -1,9 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { ProductService } from '@ngrx-workshop-app/product-data-access';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
-
 import { ProductsEffects } from './products.effects';
-import { ProductService } from '@ngrx-workshop-app/product-data-access';
 
 describe('ProductsEffects', () => {
   let actions$: Observable<any>;
@@ -11,6 +11,7 @@ describe('ProductsEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         ProductsEffects,
         provideMockActions(() => actions$),

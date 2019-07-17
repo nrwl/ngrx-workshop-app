@@ -1,24 +1,22 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ProductService } from '@ngrx-workshop-app/product-data-access';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CartService } from '@ngrx-workshop-app/cart-data-access';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
-import { ProductsEffects } from './cart.effects';
+import { CartEffects } from './cart.effects';
 
-
-describe('ProductsEffects', () => {
+describe('CartEffects', () => {
   let actions$: Observable<any>;
-  let effects: ProductsEffects;
+  let effects: CartEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ProductsEffects,
-        provideMockActions(() => actions$),
-        ProductService
-      ]
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [CartEffects, provideMockActions(() => actions$), CartService]
     });
 
-    effects = TestBed.get<ProductsEffects>(ProductsEffects);
+    effects = TestBed.get<CartEffects>(CartEffects);
   });
 
   it('should be created', () => {

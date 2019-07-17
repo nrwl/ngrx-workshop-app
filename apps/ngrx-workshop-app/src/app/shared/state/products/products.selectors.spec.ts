@@ -1,10 +1,9 @@
-import { State } from './products.reducer';
-import * as ProductsSelectors from './products.selectors';
 import { Product } from '@ngrx-workshop-app/api-interface';
+import * as ProductsSelectors from './products.selectors';
 
 describe('Products Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getProductsId = it => it['id'];
+  const getProductsId = it => it['productId'];
 
   let storeState;
 
@@ -17,11 +16,12 @@ describe('Products Selectors', () => {
     });
     storeState = {
       products: {
-        list: [
-          createProducts('PRODUCT-AAA'),
-          createProducts('PRODUCT-BBB'),
-          createProducts('PRODUCT-CCC')
-        ],
+        ids: ['PRODUCT-AAA', 'PRODUCT-BBB', 'PRODUCT-CCC'],
+        entities: {
+          ['PRODUCT-AAA']: createProducts('PRODUCT-AAA'),
+          ['PRODUCT-BBB']: createProducts('PRODUCT-BBB'),
+          ['PRODUCT-CCC']: createProducts('PRODUCT-CCC')
+        },
         selectedId: 'PRODUCT-BBB',
         error: ERROR_MSG,
         loaded: true
