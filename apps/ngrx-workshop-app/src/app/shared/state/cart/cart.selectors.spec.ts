@@ -3,7 +3,6 @@ import * as CartSelectors from './cart.selectors';
 
 describe('Cart Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getProductsId = it => it['id'];
 
   let storeState;
 
@@ -15,13 +14,13 @@ describe('Cart Selectors', () => {
       price: 4.99
     });
     storeState = {
-      products: {
-        list: [
-          createProducts('PRODUCT-AAA'),
-          createProducts('PRODUCT-BBB'),
-          createProducts('PRODUCT-CCC')
-        ],
-        selectedId: 'PRODUCT-BBB',
+      cart: {
+        ids: ['PRODUCT-AAA', 'PRODUCT-BBB', 'PRODUCT-CCC'],
+        entities: {
+          ['PRODUCT-AAA']: createProducts('PRODUCT-AAA'),
+          ['PRODUCT-BBB']: createProducts('PRODUCT-BBB'),
+          ['PRODUCT-CCC']: createProducts('PRODUCT-CCC')
+        },
         error: ERROR_MSG,
         loaded: true
       }
@@ -29,24 +28,27 @@ describe('Cart Selectors', () => {
   });
 
   describe('Cart Selectors', () => {
-    it('getAllProductsInCart() should return the list of Products', () => {
+    it('getAllProductsInCart() should return the list of products in cart', () => {
       const results = CartSelectors.getAllProductsInCart(storeState);
-      const selId = getProductsId(results[1]);
-
       expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
     });
 
     it("getLoaded() should return the current 'loaded' status", () => {
       const result = CartSelectors.getCartLoaded(storeState);
-
       expect(result).toBe(true);
     });
 
     it("getError() should return the current 'error' storeState", () => {
       const result = CartSelectors.getError(storeState);
-
       expect(result).toBe(ERROR_MSG);
+    });
+
+    it('getCartTotal() should return the correct sum from products price in cart', () => {
+      const expected = 14.97;
+
+      const result = CartSelectors.getCartTotal(storeState);
+
+      expect(result).toBe(expected);
     });
   });
 });
