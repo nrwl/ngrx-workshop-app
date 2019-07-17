@@ -15,6 +15,6 @@ export class ProductService {
   }
 
   getProduct(productId: number): Product {
-    return this.products.find(product => product.productId === productId);
+    return this.products.find(product => +product.productId === productId);
   }
 }

@@ -8,7 +8,7 @@ export interface ShippingMethod {
 }
 
 export interface Product {
-  productId: number;
+  productId: string;
   name: string;
   price: number;
   description: string;
