@@ -1,3 +1,5 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 /* Global Styles */
 
 * {
@@ -108,9 +110,27 @@ button:disabled {
   padding-right: 4px;
 }
 
+.fancy-button svg {
+  padding-right: 4px;
+}
+
+.fancy-button svg path {
+  stroke: #1976d2;
+  fill: #1976d2;
+}
+
+.fancy-button.invalid {
+  color: rgb(255, 55, 55);
+}
+
+.fancy-button.invalid svg path {
+  stroke: rgb(255, 55, 55);
+  fill: rgb(255, 55, 55);
+}
+
 /* Top Bar */
 
-app-top-bar {
+ngrx-workshop-app-top-bar {
   width: 100%;
   height: 68px;
   background-color: #1976d2;
@@ -119,9 +139,11 @@ app-top-bar {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  color: white;
+  margin: 0;
 }
 
-app-top-bar h1 {
+ngrx-workshop-app-top-bar h1 {
   color: white;
   margin: 0;
 }
@@ -140,4 +162,16 @@ app-top-bar h1 {
   margin-bottom: 8px;
   border-radius: 2px;
   background-color: #eeeeee;
+}
+
+.shipping-item {
+  cursor: pointer;
+}
+
+.shipping-item.selected {
+  background-color: #1976d2;
+}
+
+.shipping-item.selected span {
+  color: white;
 }

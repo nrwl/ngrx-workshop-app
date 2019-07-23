@@ -57,7 +57,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
     ProductsStateModule,
-    CartStateModule
+    CartStateModule,
     ShippingStateModule,
     MatDialogModule,
     MatButtonModule,

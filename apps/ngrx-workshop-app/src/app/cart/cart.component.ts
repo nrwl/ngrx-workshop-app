@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import * as fromCart from '../shared/state/cart';
-import { Observable } from 'rxjs';
 import { ItemWithProduct } from '@ngrx-workshop-app/api-interface';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromCart from '../shared/state/cart';
+import {
+  clearShippingOption,
+  selectAllShippingOptions,
+  selectSelectedShippingOption,
+  selectShippingMethod
+} from '../shared/state/shipping';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +21,8 @@ export class CartComponent implements OnInit {
     fromCart.getAllItemsInCartWithProduct
   );
   checkoutForm: FormGroup;
+  shippingOptions$ = this.store.select(selectAllShippingOptions);
+  selectedMethod$ = this.store.select(selectSelectedShippingOption);
 
   constructor(
     private store: Store<{ cart: fromCart.State }>,
@@ -29,8 +37,13 @@ export class CartComponent implements OnInit {
     });
   }
 
+  optionSelected(method: string) {
+    this.store.dispatch(selectShippingMethod({ shippingMethod: method }));
+  }
+
   onSubmit(customerData) {
     this.store.dispatch(fromCart.checkout());
     this.checkoutForm.reset();
+    this.store.dispatch(clearShippingOption());
   }
 }
