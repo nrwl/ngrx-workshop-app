@@ -13,7 +13,7 @@ export class CartEffects {
       ofType(CartActions.enterCartPage),
       exhaustMap(() =>
         this.cartService.getItems().pipe(
-          map(products => CartActions.loadCartSuccess({ products })),
+          map(items => CartActions.loadCartSuccess({ items })),
           catchError(() =>
             of(
               CartActions.loadCartFailure({
@@ -29,9 +29,10 @@ export class CartEffects {
   addToCart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CartActions.addToCart),
-      concatMap(({ product }) =>
-        this.cartService.addToCart(product).pipe(
-          map(products => CartActions.addToCartSuccess({ products })),
+      tap(action => console.log(action)),
+      concatMap(({ productId }) =>
+        this.cartService.addToCart(productId).pipe(
+          map(items => CartActions.addToCartSuccess({ items })),
           catchError(() =>
             of(
               CartActions.addToCartFailure({

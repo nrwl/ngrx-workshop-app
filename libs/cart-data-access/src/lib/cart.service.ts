@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '@ngrx-workshop-app/api-interface';
+import { Product, Item } from '@ngrx-workshop-app/api-interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,15 +9,16 @@ import { Observable } from 'rxjs';
 export class CartService {
   constructor(private http: HttpClient) {}
 
-  getItems(): Observable<Product[]> {
-    return this.http.get<Product[]>('api/cart');
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>('api/cart');
   }
 
-  addToCart(product: Product): Observable<Product[]> {
-    return this.http.post<Product[]>('api/cart', product);
+  addToCart(productId: string): Observable<Item[]> {
+    console.log(productId);
+    return this.http.post<Item[]>('api/cart', { productId });
   }
 
-  checkout(): Observable<Product[]> {
-    return this.http.delete<Product[]>('api/cart');
+  checkout(): Observable<Item[]> {
+    return this.http.delete<Item[]>('api/cart');
   }
 }

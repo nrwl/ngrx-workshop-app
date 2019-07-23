@@ -1,4 +1,4 @@
-import { Product } from '@ngrx-workshop-app/api-interface';
+import { Product, Item } from '@ngrx-workshop-app/api-interface';
 import { createAction, props } from '@ngrx/store';
 
 export const enterCartPage = createAction('[Cart Page] Enter');
@@ -7,7 +7,7 @@ export const checkout = createAction('[Cart Page] Checkout');
 
 export const checkoutSuccess = createAction(
   '[Cart API] Checkout Success',
-  props<{ products: Product[] }>()
+  props<{ products: Item[] }>()
 );
 
 export const checkoutFailure = createAction(
@@ -17,12 +17,12 @@ export const checkoutFailure = createAction(
 
 export const addToCart = createAction(
   '[Products Details Page] Add to Cart',
-  props<{ product: Product }>()
+  props<{ productId: string }>()
 );
 
 export const addToCartSuccess = createAction(
   '[Cart API] Add to Cart Success',
-  props<{ products: Product[] }>()
+  props<{ items: Item[] }>()
 );
 
 export const addToCartFailure = createAction(
@@ -32,7 +32,7 @@ export const addToCartFailure = createAction(
 
 export const loadCartSuccess = createAction(
   '[Cart API] Load Cart Success',
-  props<{ products: Product[] }>()
+  props<{ items: Item[] }>()
 );
 
 export const loadCartFailure = createAction(

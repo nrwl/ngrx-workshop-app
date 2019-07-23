@@ -1,5 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Product, ShippingMethod } from '@ngrx-workshop-app/api-interface';
+import {
+  Product,
+  ShippingMethod,
+  Item
+} from '@ngrx-workshop-app/api-interface';
 import { CartService } from './cart.service';
 import { ProductService } from './product.service';
 import { ShippingService } from './shipping.service';
@@ -28,17 +32,17 @@ export class AppController {
   }
 
   @Get('cart')
-  getCartItems(): Product[] {
+  getCartItems(): Item[] {
     return this.cartService.getItems();
   }
 
   @Post('cart')
-  addToCart(@Body() product: Product): Product[] {
-    return this.cartService.addItem(product);
+  addToCart(@Body() { productId }): Item[] {
+    return this.cartService.addItem(productId);
   }
 
   @Delete('cart')
-  checkout(): Product[] {
+  checkout(): Item[] {
     return this.cartService.checkout();
   }
 }

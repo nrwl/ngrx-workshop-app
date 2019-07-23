@@ -1,17 +1,17 @@
-import { Product } from '@ngrx-workshop-app/api-interface';
+import { Product, Item } from '@ngrx-workshop-app/api-interface';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as CartActions from './cart.actions';
 
-export interface State extends EntityState<Product> {
+export interface State extends EntityState<Item> {
   loaded: boolean;
   error: string | null;
 }
 
 export const cartFeatureKey = 'cart';
 
-export const adapter = createEntityAdapter<Product>({
-  selectId: (model: Product) => model.productId
+export const adapter = createEntityAdapter<Item>({
+  selectId: (model: Item) => model.serialNumber
 });
 
 export const initialState: State = adapter.getInitialState({
@@ -26,8 +26,8 @@ const cartReducer = createReducer(
     loaded: false,
     error: null
   })),
-  on(CartActions.loadCartSuccess, (state, { products }) =>
-    adapter.addAll(products, { ...state, loaded: true, error: null })
+  on(CartActions.loadCartSuccess, (state, { items }) =>
+    adapter.addAll(items, { ...state, loaded: true, error: null })
   ),
   on(CartActions.loadCartFailure, (state, { error }) => ({
     ...state,
@@ -50,8 +50,8 @@ const cartReducer = createReducer(
     loaded: false,
     error: null
   })),
-  on(CartActions.addToCartSuccess, (state, { products }) =>
-    adapter.addAll(products, { ...state, loaded: true, error: null })
+  on(CartActions.addToCartSuccess, (state, { items }) =>
+    adapter.addAll(items, { ...state, loaded: true, error: null })
   ),
   on(CartActions.addToCartFailure, (state, { error }) => ({
     ...state,
