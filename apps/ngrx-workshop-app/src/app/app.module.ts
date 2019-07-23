@@ -1,7 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { CartDataAccessModule } from '@ngrx-workshop-app/cart-data-access';
 import { ProductDataAccessModule } from '@ngrx-workshop-app/product-data-access';
@@ -18,7 +21,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductListComponent } from './product-list/product-list.component';
 import { CartStateModule } from './shared/state/cart';
 import { ProductsStateModule } from './shared/state/products';
-import { ShippingComponent } from './shipping/shipping.component';
+import { ShippingStateModule } from './shared/state/shipping/shipping.module';
+import { ShippingMethodSelectionDialogComponent } from './shipping-method-selection-dialog/shipping-method-selection-dialog.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
@@ -29,18 +33,13 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     ProductAlertsComponent,
     ProductDetailsComponent,
     CartComponent,
-    ShippingComponent
+    ShippingMethodSelectionDialogComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
-      { path: 'products/:productId', component: ProductDetailsComponent },
-      { path: 'cart', component: CartComponent },
-      { path: 'shipping', component: ShippingComponent }
-    ]),
     CartDataAccessModule,
     ProductDataAccessModule,
     ShippingDataAccessModule,
@@ -59,8 +58,17 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     StoreRouterConnectingModule.forRoot(),
     ProductsStateModule,
     CartStateModule
+    ShippingStateModule,
+    MatDialogModule,
+    MatButtonModule,
+    RouterModule.forRoot([
+      { path: '', component: ProductListComponent },
+      { path: 'products/:productId', component: ProductDetailsComponent },
+      { path: 'cart', component: CartComponent }
+    ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ShippingMethodSelectionDialogComponent]
 })
 export class AppModule {}
