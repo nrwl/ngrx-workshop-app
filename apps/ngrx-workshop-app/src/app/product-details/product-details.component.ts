@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import * as fromCart from '../shared/state/cart';
 import * as fromProducts from '../shared/state/products';
+import { Product } from '@ngrx-workshop-app/api-interface';
 
 @Component({
   selector: 'app-product-details',
@@ -25,7 +26,7 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(this.store);
   }
 
-  addToCart(product) {
-    this.store.dispatch(fromCart.addToCart({ product }));
+  addToCart(product: Product) {
+    this.store.dispatch(fromCart.addToCart({ productId: product.productId }));
   }
 }

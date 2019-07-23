@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromCart from './cart.reducer';
+import { getProductsEntities } from '../products';
 
 const { selectAll, selectEntities } = fromCart.adapter.getSelectors();
 
@@ -12,14 +13,22 @@ export const getCartLoaded = createSelector(
   getCartState,
   state => state.loaded
 );
+
 export const getError = createSelector(
   getCartState,
   state => state.error
 );
 
-export const getAllProductsInCart = createSelector(
+export const getAllItemsInCart = createSelector(
   getCartState,
   selectAll
+);
+
+export const getAllItemsInCartWithProduct = createSelector(
+  getAllItemsInCart,
+  getProductsEntities,
+  (items, productEntities) =>
+    items.map(item => ({ ...item, product: productEntities[item.productId] }))
 );
 
 export const getCartEntities = createSelector(
@@ -28,8 +37,13 @@ export const getCartEntities = createSelector(
 );
 
 export const getCartTotal = createSelector(
-  getAllProductsInCart,
-  products => {
-    return products ? products.map(p => p.price).reduce((a, b) => a + b, 0) : 0;
+  getAllItemsInCart,
+  getProductsEntities,
+  (items, products) => {
+    return products
+      ? items
+          .map(item => products[item.productId].price)
+          .reduce((a, b) => a + b, 0)
+      : 0;
   }
 );
