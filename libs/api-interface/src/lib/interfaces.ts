@@ -13,3 +13,10 @@ export interface Product {
   price: number;
   description: string;
 }
+
+export interface Item {
+  productId: string;
+  serialNumber: string;
+}
+
+export type ItemWithProduct = Item & { product: Product };

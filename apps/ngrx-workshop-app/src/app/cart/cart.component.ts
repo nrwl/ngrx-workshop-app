@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromCart from '../shared/state/cart';
+import { Observable } from 'rxjs';
+import { ItemWithProduct } from '@ngrx-workshop-app/api-interface';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +11,9 @@ import * as fromCart from '../shared/state/cart';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  items$ = this.store.select(fromCart.getAllProductsInCart);
+  items$: Observable<ItemWithProduct[]> = this.store.select(
+    fromCart.getAllItemsInCartWithProduct
+  );
   checkoutForm: FormGroup;
 
   constructor(

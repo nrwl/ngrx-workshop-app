@@ -1,22 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from '@ngrx-workshop-app/api-interface';
+import { Item } from '@ngrx-workshop-app/api-interface';
 
 @Injectable()
 export class CartService {
-  private items: Product[] = [];
+  private serialNumber = 0;
+  private items: Item[] = [];
 
   constructor() {}
 
-  getItems(): Product[] {
+  getItems(): Item[] {
     return this.items;
   }
 
-  addItem(product: Product): Product[] {
-    this.items.push(product);
+  addItem(productId: string): Item[] {
+    this.items.push({
+      serialNumber: `${this.serialNumber++}`,
+      productId: productId
+    });
     return this.items;
   }
 
-  checkout(): Product[] {
+  checkout(): Item[] {
     this.items = [];
     return this.items;
   }
