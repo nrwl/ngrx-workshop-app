@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromCart from '../shared/state/cart';
 import {
-  clearShippingOption,
+  cartPagePurchaseSuccess,
+  cartPageSelectShippingMethod,
   selectAllShippingOptions,
-  selectSelectedShippingOption,
-  selectShippingMethod
+  selectSelectedShippingOption
 } from '../shared/state/shipping';
 
 @Component({
@@ -37,13 +37,13 @@ export class CartComponent implements OnInit {
     });
   }
 
-  optionSelected(method: string) {
-    this.store.dispatch(selectShippingMethod({ shippingMethod: method }));
+  optionSelected(shippingMethod: string) {
+    this.store.dispatch(cartPageSelectShippingMethod({ shippingMethod }));
   }
 
   onSubmit(customerData) {
     this.store.dispatch(fromCart.checkout());
     this.checkoutForm.reset();
-    this.store.dispatch(clearShippingOption());
+    this.store.dispatch(cartPagePurchaseSuccess());
   }
 }

@@ -18,7 +18,7 @@
     <button
       mat-button
       color="primary"
-      (click)="select()"
+      (click)="select(currentlySelected)"
       cdkFocusInitial
       [disabled]="selectDisabled$ | async"
     >

@@ -1,12 +1,13 @@
-import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
-import { createReducer, on, State, Action } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import {
-  requestShippingOptions,
-  shippingOptionsLoaded,
-  shippingOptionsError,
-  selectShippingMethod,
-  clearShippingOption
+  appInit,
+  shippingApiOptionsLoadedSuccess,
+  shippingApiOptionsLoadFailure,
+  shippingDialogSelectShippingMethod,
+  cartPageSelectShippingMethod,
+  cartPagePurchaseSuccess
 } from './shipping.actions';
 
 export interface ShippingState extends EntityState<ShippingMethod> {
@@ -25,17 +26,21 @@ export const initialState: ShippingState = shippingAdapter.getInitialState({
 
 const shippingReducer = createReducer<ShippingState>(
   initialState,
-  on(requestShippingOptions, state => ({ ...state, loading: true })),
-  on(shippingOptionsLoaded, (state, { shippingMethods }) => ({
+  on(appInit, state => ({ ...state, loading: true })),
+  on(shippingApiOptionsLoadedSuccess, (state, { shippingMethods }) => ({
     ...shippingAdapter.addAll(shippingMethods, state),
     loading: false
   })),
-  on(shippingOptionsError, (state, { errorMsg }) => state),
-  on(selectShippingMethod, (state, { shippingMethod }) => ({
-    ...state,
-    selectedMethod: shippingMethod
-  })),
-  on(clearShippingOption, state => ({ ...state, selectedMethod: null }))
+  on(shippingApiOptionsLoadFailure, (state, { errorMsg }) => state),
+  on(
+    shippingDialogSelectShippingMethod,
+    cartPageSelectShippingMethod,
+    (state, { shippingMethod }) => ({
+      ...state,
+      selectedMethod: shippingMethod
+    })
+  ),
+  on(cartPagePurchaseSuccess, state => ({ ...state, selectedMethod: null }))
 );
 
 export function reducer(state: ShippingState | undefined, action: Action) {

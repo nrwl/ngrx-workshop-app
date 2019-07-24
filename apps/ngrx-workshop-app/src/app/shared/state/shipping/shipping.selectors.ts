@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { shippingAdapter, ShippingState } from './shipping.reducer';
 
 export const NO_SHIPPING_METHOD_SELECTED_TOKEN = {};
+Object.freeze(NO_SHIPPING_METHOD_SELECTED_TOKEN);
 
 export const selectShippingFeatureSelector = createFeatureSelector<
   ShippingState
