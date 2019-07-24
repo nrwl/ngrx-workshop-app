@@ -14,7 +14,7 @@ import { ShippingMethodSelectionDialogComponent } from '../shipping-method-selec
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
-  total$ = this.store.select(fromCart.getCartTotal);
+  total$ = this.store.select(fromCart.getTotal);
   shippingMethod$ = this.store.pipe(select(selectSelectedShippingOption));
   NO_SHIPPING_METHOD_SELECTED_TOKEN = NO_SHIPPING_METHOD_SELECTED_TOKEN;
 

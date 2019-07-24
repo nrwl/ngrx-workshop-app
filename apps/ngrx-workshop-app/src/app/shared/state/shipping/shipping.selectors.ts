@@ -18,8 +18,13 @@ export const selectSelectedShippingOption = createSelector(
   state => state.selectedMethod || NO_SHIPPING_METHOD_SELECTED_TOKEN
 );
 
+export const selectShippingEntities = createSelector(
+  selectShippingFeatureSelector,
+  shippingAdapter.getSelectors().selectEntities
+);
+
 export const selectShippingCost = createSelector(
-  shippingAdapter.getSelectors().selectEntities,
+  selectShippingEntities,
   selectSelectedShippingOption,
   (entities, selected) =>
     selected === NO_SHIPPING_METHOD_SELECTED_TOKEN

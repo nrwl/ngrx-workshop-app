@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import * as ProductsActions from './products.actions';
+import { appInit } from '../shipping';
 
 @Injectable()
 export class ProductsEffects {
@@ -11,7 +12,8 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(
         ProductsActions.enterProductsPage,
-        ProductsActions.enterProductDetailsPage
+        ProductsActions.enterProductDetailsPage,
+        appInit
       ),
       exhaustMap(() =>
         this.productsService.getProducts().pipe(
