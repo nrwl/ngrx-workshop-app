@@ -29,7 +29,6 @@ export class CartEffects {
   addToCart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CartActions.addToCart),
-      tap(action => console.log(action)),
       concatMap(({ productId }) =>
         this.cartService.addToCart(productId).pipe(
           map(items => CartActions.addToCartSuccess({ items })),

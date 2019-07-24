@@ -49,8 +49,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
       {
         metaReducers: !environment.production ? [] : [],
         runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true
+          strictStateImmutability: true
+          // strictActionImmutability: true
         }
       }
     ),
