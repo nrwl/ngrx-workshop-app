@@ -14,7 +14,6 @@ export class CartService {
   }
 
   addToCart(productId: string): Observable<Item[]> {
-    console.log(productId);
     return this.http.post<Item[]>('api/cart', { productId });
   }
 

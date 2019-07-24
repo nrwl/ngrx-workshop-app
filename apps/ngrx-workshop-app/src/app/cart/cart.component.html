@@ -1,13 +1,44 @@
-<h3>Cart</h3>
+<div class="side-by-side">
+  <div>
+    <h3>Cart - Subtotal: {{ cartSubtotal$ | async | currency }}</h3>
 
-<p>
-  <a routerLink="/shipping">Shipping Prices</a>
-</p>
+    <div class="cart-item" *ngFor="let item of (items$ | async)">
+      <ng-container *ngIf="item.product">
+        <span>{{ item.product.name }} </span>
+        <span>{{ item.product.price | currency }}</span>
+      </ng-container>
+    </div>
+  </div>
 
-<div class="cart-item" *ngFor="let item of (items$ | async)">
-  <span>{{ item.product.name }} </span>
-  <span>{{ item.product.price | currency }}</span>
+  <div>
+    <h3
+      *ngIf="
+        (shippingSubtotal$ | async) as shippingSubtotal;
+        else shippingRequired
+      "
+    >
+      Shipping Options - Subtotal: {{ shippingSubtotal | currency }}
+    </h3>
+
+    <ng-template #shippingRequired>
+      <h3>Shipping Options - SHIPPING SELECTION REQUIRED</h3>
+    </ng-template>
+
+    <ng-container *ngIf="(selectedMethod$ | async) as selectedMethod">
+      <div
+        class="shipping-item"
+        *ngFor="let shipping of (shippingOptions$ | async)"
+        [class.selected]="shipping.type === selectedMethod"
+        (click)="optionSelected(shipping.type)"
+      >
+        <span>{{ shipping.type }}</span>
+        <span>{{ shipping.price | currency }}</span>
+      </div>
+    </ng-container>
+  </div>
 </div>
+
+<h3>Shipping Info</h3>
 
 <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
   <div>
@@ -20,5 +51,17 @@
     <input type="text" formControlName="address" />
   </div>
 
-  <button class="button" type="submit">Checkout</button>
+  <button class="button" type="submit" [disabled]="checkoutDisabled$ | async">
+    Checkout {{ grandTotal$ | async | currency }}
+  </button>
+
+  <ng-container *ngIf="(checkoutDisabled$ | async)">
+    <h4>Errors</h4>
+
+    <ul>
+      <li *ngIf="(shippingInvalid$ | async)">Shipping Selection Required</li>
+      <li *ngIf="(cartInvalid$ | async)">Cart is Empty</li>
+      <li *ngIf="(shippingInfoInvalid$ | async)">Name & Address Required</li>
+    </ul>
+  </ng-container>
 </form>
