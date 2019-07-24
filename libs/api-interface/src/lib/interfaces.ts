@@ -16,7 +16,7 @@ export interface Product {
 
 export interface Item {
   productId: string;
-  serialNumber: string;
+  itemId: string;
 }
 
 export type ItemWithProduct = Item & { product: Product };

@@ -11,7 +11,7 @@ export interface State extends EntityState<Item> {
 export const cartFeatureKey = 'cart';
 
 export const adapter = createEntityAdapter<Item>({
-  selectId: (model: Item) => model.serialNumber
+  selectId: (model: Item) => model.itemId
 });
 
 export const initialState: State = adapter.getInitialState({
