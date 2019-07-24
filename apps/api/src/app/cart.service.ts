@@ -3,7 +3,7 @@ import { Item } from '@ngrx-workshop-app/api-interface';
 
 @Injectable()
 export class CartService {
-  private serialNumber = 0;
+  private itemCount = 0;
   private items: Item[] = [];
 
   constructor() {}
@@ -14,7 +14,7 @@ export class CartService {
 
   addItem(productId: string): Item[] {
     this.items.push({
-      serialNumber: `${this.serialNumber++}`,
+      itemId: `${this.itemCount++}`,
       productId: productId
     });
     return this.items;
