@@ -1,6 +1,7 @@
-import { Product, Item } from '@ngrx-workshop-app/api-interface';
+import { Item } from '@ngrx-workshop-app/api-interface';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
+
 import * as CartActions from './cart.actions';
 
 export interface State extends EntityState<Item> {

@@ -3,11 +3,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, merge, Subject } from 'rxjs';
 import { map, publishReplay, refCount, startWith, take } from 'rxjs/operators';
-import * as fromShipping from '../shared/state/shipping';
-import {
-  NO_SHIPPING_METHOD_SELECTED_TOKEN,
-  shippingDialogSelectShippingMethod
-} from '../shared/state/shipping';
+
+import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
 
 @Component({
   selector: 'ngrx-workshop-app-shipping-method-selection-dialog',
@@ -16,15 +13,17 @@ import {
 })
 export class ShippingMethodSelectionDialogComponent implements OnInit {
   private _userSelections$ = new Subject<string>();
-  shippingOptions$ = this.store.pipe(
-    select(fromShipping.selectAllShippingOptions)
-  );
   private _originallySelectedOption$ = this.store.pipe(
     select(fromShipping.selectSelectedShippingOption),
     take(1),
     publishReplay(1),
     refCount()
   );
+
+  shippingOptions$ = this.store.pipe(
+    select(fromShipping.selectAllShippingOptions)
+  );
+
   currentlySelected$ = merge(
     this._originallySelectedOption$,
     this._userSelections$
@@ -32,19 +31,22 @@ export class ShippingMethodSelectionDialogComponent implements OnInit {
     publishReplay(1),
     refCount()
   );
+
   selectDisabled$ = combineLatest([
-    this.currentlySelected$.pipe(startWith(NO_SHIPPING_METHOD_SELECTED_TOKEN)),
+    this.currentlySelected$.pipe(
+      startWith(fromShipping.NO_SHIPPING_METHOD_SELECTED_TOKEN)
+    ),
     this._originallySelectedOption$
   ]).pipe(
     map(([current, original]) =>
-      current === NO_SHIPPING_METHOD_SELECTED_TOKEN
+      current === fromShipping.NO_SHIPPING_METHOD_SELECTED_TOKEN
         ? true
         : current === original
     )
   );
 
   constructor(
-    private store: Store<any>,
+    private store: Store<{}>,
     private dialogRef: MatDialogRef<ShippingMethodSelectionDialogComponent>
   ) {}
 
@@ -55,7 +57,9 @@ export class ShippingMethodSelectionDialogComponent implements OnInit {
   }
 
   select(shippingMethod: string) {
-    this.store.dispatch(shippingDialogSelectShippingMethod({ shippingMethod }));
+    this.store.dispatch(
+      fromShipping.shippingDialogSelectShippingMethod({ shippingMethod })
+    );
     this.dialogRef.close();
   }
 

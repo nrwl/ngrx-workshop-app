@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromProducts from '../shared/state/products';
+import { Store, select } from '@ngrx/store';
+import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
 
 @Component({
   selector: 'app-product-list',
@@ -8,9 +8,9 @@ import * as fromProducts from '../shared/state/products';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products$ = this.store.select(fromProducts.getAllProducts);
+  products$ = this.store.pipe(select(fromProducts.getAllProducts));
 
-  constructor(private store: Store<{ products: fromProducts.State }>) {}
+  constructor(private store: Store<{}>) {}
 
   ngOnInit() {
     this.store.dispatch(fromProducts.enterProductsPage());

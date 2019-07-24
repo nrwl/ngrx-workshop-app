@@ -3,14 +3,18 @@ import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
-import { TopBarComponent } from './top-bar/top-bar.component';
+import { TopBarComponent } from './layout/top-bar/top-bar.component';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, TopBarComponent],
       imports: [HttpClientModule, RouterTestingModule],
-      providers: [provideMockStore({ initialState: {} })]
+      providers: [
+        provideMockStore({ initialState: {} }),
+        { provide: MatDialog, useValue: { open: () => {} } }
+      ]
     }).compileComponents();
   }));
 

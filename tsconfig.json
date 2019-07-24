@@ -25,7 +25,8 @@
       ],
       "@ngrx-workshop-app/shipping-data-access": [
         "libs/shipping-data-access/src/index.ts"
-      ]
+      ],
+      "@ngrx-workshop-app/*": ["apps/ngrx-workshop-app/src/app/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

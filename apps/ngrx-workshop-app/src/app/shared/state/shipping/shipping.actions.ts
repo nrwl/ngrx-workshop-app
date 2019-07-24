@@ -1,8 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
 
-export const appInit = createAction('[App] Init');
-
 export const shippingApiOptionsLoadedSuccess = createAction(
   '[Shipping API] Options Loaded Success',
   props<{ shippingMethods: ShippingMethod[] }>()

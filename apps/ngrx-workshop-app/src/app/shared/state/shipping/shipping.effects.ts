@@ -1,30 +1,32 @@
 import { Injectable } from '@angular/core';
 import { ShippingService } from '@ngrx-workshop-app/shipping-data-access';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import {
-  appInit,
-  shippingApiOptionsLoadedSuccess,
-  shippingApiOptionsLoadFailure
-} from './shipping.actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+
+import * as AppActions from '../app';
+import * as ShippingActions from './shipping.actions';
 
 @Injectable()
 export class ShippingEffects {
   getShippingOptions$ = createEffect(() =>
     this.actions.pipe(
-      ofType(appInit),
+      ofType(AppActions.init),
       switchMap(() => this.shippingService.getShippingPrices()),
       map(shippingMethods =>
-        shippingApiOptionsLoadedSuccess({ shippingMethods })
+        ShippingActions.shippingApiOptionsLoadedSuccess({ shippingMethods })
       ),
       catchError((error: Error) =>
-        of(shippingApiOptionsLoadFailure({ errorMsg: error.message }))
+        of(
+          ShippingActions.shippingApiOptionsLoadFailure({
+            errorMsg: error.message
+          })
+        )
       )
     )
   );
 
-  dispatchAppInit$ = createEffect(() => of(appInit()));
+  dispatchAppInit$ = createEffect(() => of(AppActions.init()));
 
   constructor(
     private actions: Actions,
