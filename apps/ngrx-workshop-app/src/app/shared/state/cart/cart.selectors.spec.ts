@@ -18,18 +18,24 @@ describe('Cart Selectors', () => {
       name: name || `name-${id}`,
       description: '',
       price: 4.99
-    });    
+    });
     storeState = {
-      cart: fromCart.adapter.addAll([
-        createItem('PRODUCT-AAA'),
-        createItem('PRODUCT-BBB'),
-        createItem('PRODUCT-CCC')
-      ], fromCart.initialState),
-      products: fromProducts.adapter.addAll([
-        createProducts('PRODUCT-AAA'),
-        createProducts('PRODUCT-BBB'),
-        createProducts('PRODUCT-CCC')
-      ], fromProducts.initialState)
+      cart: fromCart.adapter.addAll(
+        [
+          createItem('PRODUCT-AAA'),
+          createItem('PRODUCT-BBB'),
+          createItem('PRODUCT-CCC')
+        ],
+        fromCart.initialState
+      ),
+      products: fromProducts.adapter.addAll(
+        [
+          createProducts('PRODUCT-AAA'),
+          createProducts('PRODUCT-BBB'),
+          createProducts('PRODUCT-CCC')
+        ],
+        fromProducts.initialState
+      )
     };
   });
 
@@ -39,7 +45,6 @@ describe('Cart Selectors', () => {
   });
 
   describe('Cart Selectors', () => {
-
     it("getLoaded() should return the current 'loaded' status", () => {
       const result = CartSelectors.getCartLoaded(storeState);
       expect(result).toBe(true);

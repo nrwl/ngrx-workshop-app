@@ -12,15 +12,18 @@ export class ShippingEffects {
   getShippingOptions$ = createEffect(() =>
     this.actions.pipe(
       ofType(AppActions.init),
-      switchMap(() => this.shippingService.getShippingPrices()),
-      map(shippingMethods =>
-        ShippingActions.shippingApiOptionsLoadedSuccess({ shippingMethods })
-      ),
-      catchError((error: Error) =>
-        of(
-          ShippingActions.shippingApiOptionsLoadFailure({
-            errorMsg: error.message
-          })
+      switchMap(() =>
+        this.shippingService.getShippingPrices().pipe(
+          map(shippingMethods =>
+            ShippingActions.shippingApiOptionsLoadedSuccess({ shippingMethods })
+          ),
+          catchError((error: Error) =>
+            of(
+              ShippingActions.shippingApiOptionsLoadFailure({
+                error: error.message
+              })
+            )
+          )
         )
       )
     )

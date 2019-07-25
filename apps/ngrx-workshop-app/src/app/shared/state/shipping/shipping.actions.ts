@@ -8,7 +8,7 @@ export const shippingApiOptionsLoadedSuccess = createAction(
 
 export const shippingApiOptionsLoadFailure = createAction(
   '[Shipping API] Options Load Failure',
-  props<{ errorMsg: string }>()
+  props<{ error: string }>()
 );
 
 export const shippingDialogSelectShippingMethod = createAction(

@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
 import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
 
-import { ShippingMethodSelectionDialogComponent } from '../../cart/shipping-method-selection-dialog/shipping-method-selection-dialog.component';
+import { ShippingMethodSelectionDialogComponent } from '@ngrx-workshop-app/cart/shipping-method-selection-dialog/shipping-method-selection-dialog.component';
 
 @Component({
   selector: 'ngrx-workshop-app-top-bar',

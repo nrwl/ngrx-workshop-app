@@ -8,6 +8,7 @@ import * as ShippingActions from './shipping.actions';
 export interface ShippingState extends EntityState<ShippingMethod> {
   selectedMethod: string | null;
   loading: boolean;
+  error: string | null;
 }
 
 export const shippingAdapter = createEntityAdapter<ShippingMethod>({
@@ -16,7 +17,8 @@ export const shippingAdapter = createEntityAdapter<ShippingMethod>({
 
 export const initialState: ShippingState = shippingAdapter.getInitialState({
   selectedMethod: null,
-  loading: false
+  loading: false,
+  error: null
 });
 
 const shippingReducer = createReducer<ShippingState>(
@@ -29,10 +31,10 @@ const shippingReducer = createReducer<ShippingState>(
       loading: false
     })
   ),
-  on(
-    ShippingActions.shippingApiOptionsLoadFailure,
-    (state, { errorMsg }) => state
-  ),
+  on(ShippingActions.shippingApiOptionsLoadFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
   on(
     ShippingActions.shippingDialogSelectShippingMethod,
     ShippingActions.cartPageSelectShippingMethod,

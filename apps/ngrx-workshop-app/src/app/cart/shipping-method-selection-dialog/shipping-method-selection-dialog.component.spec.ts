@@ -13,7 +13,7 @@ describe('ShippingMethodSelectionDialogComponent', () => {
       declarations: [ShippingMethodSelectionDialogComponent],
       providers: [
         provideMockStore(),
-        { provide: MatDialogRef, useValue: { close: () => {} }}
+        { provide: MatDialogRef, useValue: { close: () => {} } }
       ]
     }).compileComponents();
   }));
