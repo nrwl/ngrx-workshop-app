@@ -1,4 +1,4 @@
-import { Product, Item } from '@ngrx-workshop-app/api-interface';
+import { Item } from '@ngrx-workshop-app/api-interface';
 import { createAction, props } from '@ngrx/store';
 
 export const enterCartPage = createAction('[Cart Page] Enter');

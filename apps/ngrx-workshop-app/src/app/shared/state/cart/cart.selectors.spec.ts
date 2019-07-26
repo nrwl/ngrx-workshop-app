@@ -1,5 +1,7 @@
-import { Product } from '@ngrx-workshop-app/api-interface';
+import { Product, Item } from '@ngrx-workshop-app/api-interface';
 import * as CartSelectors from './cart.selectors';
+import * as fromCart from './cart.reducer';
+import * as fromProducts from '../products';
 
 describe('Cart Selectors', () => {
   const ERROR_MSG = 'No Error Available';
@@ -7,6 +9,10 @@ describe('Cart Selectors', () => {
   let storeState;
 
   beforeEach(() => {
+    const createItem = (id: string): Item => ({
+      itemId: `item-${id}`,
+      productId: id
+    });
     const createProducts = (id: string, name = ''): Product => ({
       productId: id,
       name: name || `name-${id}`,
@@ -14,25 +20,31 @@ describe('Cart Selectors', () => {
       price: 4.99
     });
     storeState = {
-      cart: {
-        ids: ['PRODUCT-AAA', 'PRODUCT-BBB', 'PRODUCT-CCC'],
-        entities: {
-          ['PRODUCT-AAA']: createProducts('PRODUCT-AAA'),
-          ['PRODUCT-BBB']: createProducts('PRODUCT-BBB'),
-          ['PRODUCT-CCC']: createProducts('PRODUCT-CCC')
-        },
-        error: ERROR_MSG,
-        loaded: true
-      }
+      cart: fromCart.adapter.addAll(
+        [
+          createItem('PRODUCT-AAA'),
+          createItem('PRODUCT-BBB'),
+          createItem('PRODUCT-CCC')
+        ],
+        fromCart.initialState
+      ),
+      products: fromProducts.adapter.addAll(
+        [
+          createProducts('PRODUCT-AAA'),
+          createProducts('PRODUCT-BBB'),
+          createProducts('PRODUCT-CCC')
+        ],
+        fromProducts.initialState
+      )
     };
   });
 
-  describe('Cart Selectors', () => {
-    it('getAllProductsInCart() should return the list of products in cart', () => {
-      const results = CartSelectors.getAllProductsInCart(storeState);
-      expect(results.length).toBe(3);
-    });
+  fit('getAllItemsInCartWithProduct() should return the list of products in cart', () => {
+    const results = CartSelectors.getAllItemsInCartWithProduct(storeState);
+    expect(results.length).toBe(3);
+  });
 
+  describe('Cart Selectors', () => {
     it("getLoaded() should return the current 'loaded' status", () => {
       const result = CartSelectors.getCartLoaded(storeState);
       expect(result).toBe(true);

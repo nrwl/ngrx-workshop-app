@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShippingMethodSelectionDialogComponent } from './shipping-method-selection-dialog.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('ShippingMethodSelectionDialogComponent', () => {
   let component: ShippingMethodSelectionDialogComponent;
@@ -8,9 +10,12 @@ describe('ShippingMethodSelectionDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShippingMethodSelectionDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [ShippingMethodSelectionDialogComponent],
+      providers: [
+        provideMockStore(),
+        { provide: MatDialogRef, useValue: { close: () => {} } }
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

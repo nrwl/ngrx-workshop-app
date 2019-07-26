@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import * as fromCart from '../shared/state/cart';
-import * as fromProducts from '../shared/state/products';
+
 import { Product } from '@ngrx-workshop-app/api-interface';
+import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
+import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
 
 @Component({
   selector: 'app-product-details',
@@ -12,7 +13,7 @@ import { Product } from '@ngrx-workshop-app/api-interface';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  product$ = this.store.select(fromProducts.getSelectedProduct);
+  product$ = this.store.pipe(select(fromProducts.getSelectedProduct));
 
   constructor(private store: Store<{}>, private route: ActivatedRoute) {}
 

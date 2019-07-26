@@ -4,13 +4,15 @@ import { shippingAdapter, ShippingState } from './shipping.reducer';
 export const NO_SHIPPING_METHOD_SELECTED_TOKEN = {};
 Object.freeze(NO_SHIPPING_METHOD_SELECTED_TOKEN);
 
+const { selectAll, selectEntities } = shippingAdapter.getSelectors();
+
 export const selectShippingFeatureSelector = createFeatureSelector<
   ShippingState
 >('shipping');
 
 export const selectAllShippingOptions = createSelector(
   selectShippingFeatureSelector,
-  shippingAdapter.getSelectors().selectAll
+  selectAll
 );
 
 export const selectSelectedShippingOption = createSelector(
@@ -18,9 +20,14 @@ export const selectSelectedShippingOption = createSelector(
   state => state.selectedMethod || NO_SHIPPING_METHOD_SELECTED_TOKEN
 );
 
+export const getShippingInvalid = createSelector(
+  selectSelectedShippingOption,
+  selected => selected === NO_SHIPPING_METHOD_SELECTED_TOKEN
+);
+
 export const selectShippingEntities = createSelector(
   selectShippingFeatureSelector,
-  shippingAdapter.getSelectors().selectEntities
+  selectEntities
 );
 
 export const selectShippingCost = createSelector(

@@ -1,18 +1,14 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
 import { createReducer, on, Action } from '@ngrx/store';
-import {
-  appInit,
-  shippingApiOptionsLoadedSuccess,
-  shippingApiOptionsLoadFailure,
-  shippingDialogSelectShippingMethod,
-  cartPageSelectShippingMethod,
-  cartPagePurchaseSuccess
-} from './shipping.actions';
+
+import * as AppActions from '../app';
+import * as ShippingActions from './shipping.actions';
 
 export interface ShippingState extends EntityState<ShippingMethod> {
   selectedMethod: string | null;
   loading: boolean;
+  error: string | null;
 }
 
 export const shippingAdapter = createEntityAdapter<ShippingMethod>({
@@ -21,26 +17,36 @@ export const shippingAdapter = createEntityAdapter<ShippingMethod>({
 
 export const initialState: ShippingState = shippingAdapter.getInitialState({
   selectedMethod: null,
-  loading: false
+  loading: false,
+  error: null
 });
 
 const shippingReducer = createReducer<ShippingState>(
   initialState,
-  on(appInit, state => ({ ...state, loading: true })),
-  on(shippingApiOptionsLoadedSuccess, (state, { shippingMethods }) => ({
-    ...shippingAdapter.addAll(shippingMethods, state),
-    loading: false
-  })),
-  on(shippingApiOptionsLoadFailure, (state, { errorMsg }) => state),
+  on(AppActions.init, state => ({ ...state, loading: true })),
   on(
-    shippingDialogSelectShippingMethod,
-    cartPageSelectShippingMethod,
+    ShippingActions.shippingApiOptionsLoadedSuccess,
+    (state, { shippingMethods }) => ({
+      ...shippingAdapter.addAll(shippingMethods, state),
+      loading: false
+    })
+  ),
+  on(ShippingActions.shippingApiOptionsLoadFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+  on(
+    ShippingActions.shippingDialogSelectShippingMethod,
+    ShippingActions.cartPageSelectShippingMethod,
     (state, { shippingMethod }) => ({
       ...state,
       selectedMethod: shippingMethod
     })
   ),
-  on(cartPagePurchaseSuccess, state => ({ ...state, selectedMethod: null }))
+  on(ShippingActions.cartPagePurchaseSuccess, state => ({
+    ...state,
+    selectedMethod: null
+  }))
 );
 
 export function reducer(state: ShippingState | undefined, action: Action) {
