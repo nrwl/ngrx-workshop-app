@@ -1,5 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { shippingAdapter, ShippingState } from './shipping.reducer';
+import {
+  shippingAdapter,
+  shippingFeatureKey,
+  ShippingState
+} from './shipping.reducer';
 
 export const NO_SHIPPING_METHOD_SELECTED_TOKEN = {};
 Object.freeze(NO_SHIPPING_METHOD_SELECTED_TOKEN);
@@ -8,7 +12,7 @@ const { selectAll, selectEntities } = shippingAdapter.getSelectors();
 
 export const selectShippingFeatureSelector = createFeatureSelector<
   ShippingState
->('shipping');
+>(shippingFeatureKey);
 
 export const selectAllShippingOptions = createSelector(
   selectShippingFeatureSelector,

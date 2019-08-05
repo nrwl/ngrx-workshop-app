@@ -1,5 +1,5 @@
-import { createAction, props } from '@ngrx/store';
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
+import { createAction, props } from '@ngrx/store';
 
 export const shippingApiOptionsLoadedSuccess = createAction(
   '[Shipping API] Options Loaded Success',
@@ -14,13 +14,4 @@ export const shippingApiOptionsLoadFailure = createAction(
 export const shippingDialogSelectShippingMethod = createAction(
   '[Shipping Dialog] Select Shipping Method',
   props<{ shippingMethod: string }>()
-);
-
-export const cartPageSelectShippingMethod = createAction(
-  '[Cart Page] Select Shipping Method',
-  props<{ shippingMethod: string }>()
-);
-
-export const cartPagePurchaseSuccess = createAction(
-  '[Cart Page] PurchaseSuccess'
 );
