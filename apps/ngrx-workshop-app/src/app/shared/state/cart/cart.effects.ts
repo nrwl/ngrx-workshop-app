@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
 import * as CartActions from './cart.actions';
 import * as AppActions from '../app';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class CartEffects {
@@ -76,7 +77,15 @@ export class CartEffects {
     () =>
       this.actions$.pipe(
         ofType(CartActions.addToCartSuccess),
-        tap(() => window.alert('Your product has been added to the cart!'))
+        tap(() =>
+          this.snackBar.open(
+            'Your product has been added to the cart!',
+            undefined,
+            {
+              duration: 2000
+            }
+          )
+        )
       ),
     { dispatch: false }
   );
@@ -85,7 +94,15 @@ export class CartEffects {
     () =>
       this.actions$.pipe(
         ofType(CartActions.checkoutSuccess),
-        tap(() => window.alert('Checkout has been successfully completed.'))
+        tap(() =>
+          this.snackBar.open(
+            'Checkout has been successfully completed.',
+            undefined,
+            {
+              duration: 2000
+            }
+          )
+        )
       ),
     { dispatch: false }
   );
@@ -93,6 +110,7 @@ export class CartEffects {
   constructor(
     private actions$: Actions,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 }
