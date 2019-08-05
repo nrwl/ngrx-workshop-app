@@ -175,3 +175,7 @@ ngrx-workshop-app-top-bar h1 {
 .shipping-item.selected span {
   color: white;
 }
+
+simple-snack-bar span {
+  color: white;
+}

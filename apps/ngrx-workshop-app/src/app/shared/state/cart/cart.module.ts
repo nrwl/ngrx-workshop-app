@@ -5,12 +5,14 @@ import { StoreModule } from '@ngrx/store';
 
 import { CartEffects } from './cart.effects';
 import * as fromCart from './cart.reducer';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
   imports: [
     StoreModule.forFeature(fromCart.cartFeatureKey, fromCart.reducer),
-    EffectsModule.forFeature([CartEffects])
+    EffectsModule.forFeature([CartEffects]),
+    MatSnackBarModule
   ]
 })
 export class CartStateModule {}
