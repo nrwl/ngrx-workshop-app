@@ -1,7 +1,6 @@
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
-import { createReducer, on, Action } from '@ngrx/store';
-
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as AppActions from '../app';
 import * as ShippingActions from './shipping.actions';
 
@@ -10,6 +9,8 @@ export interface ShippingState extends EntityState<ShippingMethod> {
   loading: boolean;
   error: string | null;
 }
+
+export const shippingFeatureKey = 'shipping';
 
 export const shippingAdapter = createEntityAdapter<ShippingMethod>({
   selectId: shippingMethod => shippingMethod.type
@@ -37,16 +38,11 @@ const shippingReducer = createReducer<ShippingState>(
   })),
   on(
     ShippingActions.shippingDialogSelectShippingMethod,
-    ShippingActions.cartPageSelectShippingMethod,
     (state, { shippingMethod }) => ({
       ...state,
       selectedMethod: shippingMethod
     })
-  ),
-  on(ShippingActions.cartPagePurchaseSuccess, state => ({
-    ...state,
-    selectedMethod: null
-  }))
+  )
 );
 
 export function reducer(state: ShippingState | undefined, action: Action) {

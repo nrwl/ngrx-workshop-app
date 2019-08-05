@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { select, Store } from '@ngrx/store';
-
-import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
-import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
-
 import { ShippingMethodSelectionDialogComponent } from '@ngrx-workshop-app/cart/shipping-method-selection-dialog/shipping-method-selection-dialog.component';
+import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'ngrx-workshop-app-top-bar',
@@ -13,7 +10,7 @@ import { ShippingMethodSelectionDialogComponent } from '@ngrx-workshop-app/cart/
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
-  total$ = this.store.pipe(select(fromCart.getTotal));
+  total = 0;
   shippingMethod$ = this.store.pipe(
     select(fromShipping.selectSelectedShippingOption)
   );
