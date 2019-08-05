@@ -7,17 +7,12 @@ export const checkout = createAction('[Cart Page] Checkout');
 
 export const checkoutSuccess = createAction(
   '[Cart API] Checkout Success',
-  props<{ products: Item[] }>()
+  props<{ items: Item[] }>()
 );
 
 export const checkoutFailure = createAction(
   '[Cart API] Checkout Failure',
   props<{ error: any }>()
-);
-
-export const addToCart = createAction(
-  '[Products Details Page] Add to Cart',
-  props<{ productId: string }>()
 );
 
 export const addToCartSuccess = createAction(

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-
 import { Product } from '@ngrx-workshop-app/api-interface';
-import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
 import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
+import { select, Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-details',
@@ -28,6 +26,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.store.dispatch(fromCart.addToCart({ productId: product.productId }));
+    this.store.dispatch(
+      fromProducts.addToCart({ productId: product.productId })
+    );
   }
 }

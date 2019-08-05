@@ -1,11 +1,16 @@
-import { createAction, props } from '@ngrx/store';
 import { Product } from '@ngrx-workshop-app/api-interface';
+import { createAction, props } from '@ngrx/store';
 
 export const enterProductsPage = createAction('[Products Page] Enter');
 
 export const enterProductDetailsPage = createAction(
   '[Products Details Page] Enter',
   props<{ id: string }>()
+);
+
+export const addToCart = createAction(
+  '[Products Details Page] Add to Cart',
+  props<{ productId: string }>()
 );
 
 export const loadProductsSuccess = createAction(

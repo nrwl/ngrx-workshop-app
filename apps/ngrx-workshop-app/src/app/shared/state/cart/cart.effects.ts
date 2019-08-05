@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { CartService } from '@ngrx-workshop-app/cart-data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
-import * as CartActions from './cart.actions';
 import * as AppActions from '../app';
-import { MatSnackBar } from '@angular/material';
+import * as ProductActions from '../products/products.actions';
+import * as CartActions from './cart.actions';
 
 @Injectable()
 export class CartEffects {
@@ -30,7 +31,7 @@ export class CartEffects {
 
   addToCart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CartActions.addToCart),
+      ofType(ProductActions.addToCart),
       concatMap(({ productId }) =>
         this.cartService.addToCart(productId).pipe(
           map(items => CartActions.addToCartSuccess({ items })),
@@ -51,7 +52,7 @@ export class CartEffects {
       ofType(CartActions.checkout),
       concatMap(() =>
         this.cartService.checkout().pipe(
-          map(products => CartActions.checkoutSuccess({ products })),
+          map(items => CartActions.checkoutSuccess({ items })),
           catchError(() =>
             of(
               CartActions.checkoutFailure({
