@@ -5,13 +5,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
 import * as CartActions from './cart.actions';
+import * as AppActions from '../app';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class CartEffects {
   loadCart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CartActions.enterCartPage),
+      ofType(CartActions.enterCartPage, AppActions.init),
       exhaustMap(() =>
         this.cartService.getItems().pipe(
           map(items => CartActions.loadCartSuccess({ items })),
