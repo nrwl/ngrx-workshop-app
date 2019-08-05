@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CartService } from '@ngrx-workshop-app/cart-data-access';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -12,7 +13,11 @@ describe('CartEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatSnackBarModule
+      ],
       providers: [CartEffects, provideMockActions(() => actions$), CartService]
     });
 
