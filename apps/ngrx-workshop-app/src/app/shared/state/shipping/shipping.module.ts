@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
-import { reducer } from './shipping.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { ShippingEffects } from './shipping.effects';
+import { reducer, shippingFeatureKey } from './shipping.reducer';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature('shipping', reducer),
+    StoreModule.forFeature(shippingFeatureKey, reducer),
     EffectsModule.forFeature([ShippingEffects])
   ]
 })
