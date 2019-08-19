@@ -45,7 +45,7 @@ const shippingReducer = createReducer<ShippingState>(
       selectedMethod: shippingMethod
     })
   ),
-  on(CartActions.cartPagePurchaseSuccess, state => ({
+  on(CartActions.checkout, state => ({
     ...state,
     selectedMethod: null
   }))

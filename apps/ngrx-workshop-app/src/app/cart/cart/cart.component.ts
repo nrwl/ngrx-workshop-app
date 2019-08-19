@@ -56,6 +56,5 @@ export class CartComponent implements OnInit {
   onSubmit() {
     this.store.dispatch(fromCart.checkout());
     this.checkoutForm.reset();
-    this.store.dispatch(fromCart.cartPagePurchaseSuccess());
   }
 }

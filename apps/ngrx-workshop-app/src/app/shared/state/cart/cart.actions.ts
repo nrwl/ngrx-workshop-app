@@ -39,7 +39,3 @@ export const cartPageSelectShippingMethod = createAction(
   '[Cart Page] Select Shipping Method',
   props<{ shippingMethod: string }>()
 );
-
-export const cartPagePurchaseSuccess = createAction(
-  '[Cart Page] Purchase Success'
-);
