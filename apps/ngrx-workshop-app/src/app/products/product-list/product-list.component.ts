@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
 import { MatSnackBar } from '@angular/material';
+import { ProductActions } from '@ngrx-workshop-app/shared/state/products';
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +15,7 @@ export class ProductListComponent implements OnInit {
   constructor(private store: Store<{}>, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    this.store.dispatch(fromProducts.enterProductsPage());
+    this.store.dispatch(ProductActions.enterProductsPage());
   }
 
   share() {

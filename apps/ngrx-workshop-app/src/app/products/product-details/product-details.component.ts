@@ -5,6 +5,7 @@ import { Product } from '@ngrx-workshop-app/api-interface';
 import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { ProductActions } from '@ngrx-workshop-app/shared/state/products';
 
 @Component({
   selector: 'app-product-details',
@@ -24,7 +25,7 @@ export class ProductDetailsComponent implements OnInit {
     this.route.paramMap
       .pipe(
         map(params =>
-          fromProducts.enterProductDetailsPage({ id: params.get('productId') })
+          ProductActions.enterProductDetailsPage({ id: params.get('productId') })
         )
       )
       .subscribe(this.store);
