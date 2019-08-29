@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 
 import * as ProductsActions from './products.actions';
-import { init } from '../app';
+import * as AppActions from '../app/app.actions';
 
 @Injectable()
 export class ProductsEffects {
@@ -14,7 +14,7 @@ export class ProductsEffects {
       ofType(
         ProductsActions.enterProductsPage,
         ProductsActions.enterProductDetailsPage,
-        init
+        AppActions.init
       ),
       exhaustMap(() =>
         this.productsService.getProducts().pipe(

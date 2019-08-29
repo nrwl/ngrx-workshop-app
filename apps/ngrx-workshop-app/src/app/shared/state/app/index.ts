@@ -1,1 +1,3 @@
-export * from './app.actions';
+import * as AppActions from './app.actions';
+
+export { AppActions };
