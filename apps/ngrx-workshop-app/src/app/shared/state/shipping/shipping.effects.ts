@@ -4,7 +4,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import * as AppActions from '../app';
+import * as AppActions from '../app/app.actions';
 import * as ShippingActions from './shipping.actions';
 
 @Injectable()

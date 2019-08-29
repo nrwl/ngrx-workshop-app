@@ -1,7 +1,7 @@
 import { ShippingMethod } from '@ngrx-workshop-app/api-interface';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import * as AppActions from '../app';
+import * as AppActions from '../app/app.actions';
 import * as CartActions from '../cart/cart.actions';
 import * as ShippingActions from './shipping.actions';
 
