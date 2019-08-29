@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng run ngrx-workshop-app:serve-with-api",
     "build": "ng build",
     "test": "ng test",
     "lint": "nx lint && ng lint",
