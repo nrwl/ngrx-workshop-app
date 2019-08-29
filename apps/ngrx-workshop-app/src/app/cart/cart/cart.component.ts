@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
 import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
+import { CartActions } from '@ngrx-workshop-app/shared/state/cart';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -44,18 +45,17 @@ export class CartComponent implements OnInit {
   constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    this.store.dispatch(fromCart.enterCartPage());
+    this.store.dispatch(CartActions.enterCartPage());
   }
 
   optionSelected(shippingMethod: string) {
     this.store.dispatch(
-      fromCart.cartPageSelectShippingMethod({ shippingMethod })
+      CartActions.cartPageSelectShippingMethod({ shippingMethod })
     );
   }
 
   onSubmit() {
-    this.store.dispatch(fromCart.checkout());
+    this.store.dispatch(CartActions.checkout());
     this.checkoutForm.reset();
-    this.store.dispatch(fromCart.cartPagePurchaseSuccess());
   }
 }

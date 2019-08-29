@@ -5,7 +5,7 @@ import { CartService } from '@ngrx-workshop-app/cart-data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, map, tap } from 'rxjs/operators';
-import * as AppActions from '../app';
+import * as AppActions from '../app/app.actions';
 import * as ProductActions from '../products/products.actions';
 import * as CartActions from './cart.actions';
 

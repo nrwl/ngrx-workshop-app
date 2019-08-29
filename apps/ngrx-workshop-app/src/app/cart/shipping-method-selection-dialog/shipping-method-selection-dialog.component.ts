@@ -5,6 +5,7 @@ import { combineLatest, merge, Subject } from 'rxjs';
 import { map, publishReplay, refCount, startWith, take } from 'rxjs/operators';
 
 import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
+import { ShippingActions } from '@ngrx-workshop-app/shared/state/shipping';
 
 @Component({
   selector: 'ngrx-workshop-app-shipping-method-selection-dialog',
@@ -58,7 +59,7 @@ export class ShippingMethodSelectionDialogComponent implements OnInit {
 
   select(shippingMethod: string) {
     this.store.dispatch(
-      fromShipping.shippingDialogSelectShippingMethod({ shippingMethod })
+      ShippingActions.shippingDialogSelectShippingMethod({ shippingMethod })
     );
     this.dialogRef.close();
   }
