@@ -9,7 +9,8 @@
   },
   "projects": {
     "ngrx-workshop-app-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["ngrx-workshop-app"]
     },
     "ngrx-workshop-app": {
       "tags": []

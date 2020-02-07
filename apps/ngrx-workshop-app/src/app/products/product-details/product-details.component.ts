@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '@ngrx-workshop-app/api-interface';
 import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
