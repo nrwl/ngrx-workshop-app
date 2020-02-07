@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductActions } from '@ngrx-workshop-app/shared/state/products';
 
 @Component({
