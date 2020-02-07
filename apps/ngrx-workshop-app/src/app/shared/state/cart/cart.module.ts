@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { CartEffects } from './cart.effects';
 import * as fromCart from './cart.reducer';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],

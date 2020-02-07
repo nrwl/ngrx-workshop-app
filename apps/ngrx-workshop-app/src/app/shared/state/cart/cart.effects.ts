@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CartService } from '@ngrx-workshop-app/cart-data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
