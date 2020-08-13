@@ -1,8 +1,8 @@
 <div class="side-by-side">
   <div>
-    <h3>Cart - Subtotal: {{ cartSubtotal | currency }}</h3>
+    <h3>Cart - Subtotal: {{ cartSubtotal$ | async | currency }}</h3>
 
-    <div class="cart-item" *ngFor="let item of items">
+    <div class="cart-item" *ngFor="let item of (items$ | async)">
       <ng-container *ngIf="item.product">
         <span>{{ item.product.name }} </span>
         <span>{{ item.product.price | currency }}</span>
@@ -52,7 +52,7 @@
   </div>
 
   <button class="button" type="submit" [disabled]="checkoutDisabled$ | async">
-    Checkout {{ grandTotal | currency }}
+    Checkout {{ grandTotal$ | async | currency }}
   </button>
 
   <ng-container *ngIf="(checkoutDisabled$ | async)">
@@ -60,7 +60,7 @@
 
     <ul>
       <li *ngIf="(shippingInvalid$ | async)">Shipping Selection Required</li>
-      <li *ngIf="cartInvalid">Cart is Empty</li>
+      <li *ngIf="(cartInvalid$ | async)">Cart is Empty</li>
       <li *ngIf="(shippingInfoInvalid$ | async)">Name & Address Required</li>
     </ul>
   </ng-container>

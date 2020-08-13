@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ItemWithProduct } from '@ngrx-workshop-app/api-interface';
+import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
 import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
+import { CartActions } from '@ngrx-workshop-app/shared/state/cart';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -17,18 +18,18 @@ export class CartComponent implements OnInit {
     address: new FormControl('', [Validators.required])
   });
 
-  items = new Array<ItemWithProduct>();
+  items$ = this.store.pipe(select(fromCart.getAllItemsInCartWithProduct));
   shippingOptions$ = this.store.pipe(
     select(fromShipping.selectAllShippingOptions)
   );
   selectedMethod$ = this.store.pipe(
     select(fromShipping.selectSelectedShippingOption)
   );
-  cartSubtotal = 0;
+  cartSubtotal$ = this.store.pipe(select(fromCart.getCartTotal));
   shippingSubtotal$ = this.store.pipe(select(fromShipping.selectShippingCost));
-  grandTotal = 0;
+  grandTotal$ = this.store.pipe(select(fromCart.getTotal));
   shippingInvalid$ = this.store.pipe(select(fromShipping.getShippingInvalid));
-  cartInvalid = false;
+  cartInvalid$ = this.store.pipe(select(fromCart.getCartInvalid));
 
   shippingInfoInvalid$ = this.checkoutForm.statusChanges.pipe(
     map(x => x !== 'VALID'),
@@ -37,16 +38,24 @@ export class CartComponent implements OnInit {
 
   checkoutDisabled$: Observable<boolean> = combineLatest([
     this.shippingInvalid$,
+    this.cartInvalid$,
     this.shippingInfoInvalid$
   ]).pipe(map(arr => arr.some(x => x === true)));
 
   constructor(private store: Store<{}>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(CartActions.enterCartPage());
+  }
 
-  optionSelected(shippingMethod: string) {}
+  optionSelected(shippingMethod: string) {
+    this.store.dispatch(
+      CartActions.cartPageSelectShippingMethod({ shippingMethod })
+    );
+  }
 
   onSubmit() {
+    this.store.dispatch(CartActions.checkout());
     this.checkoutForm.reset();
   }
 }

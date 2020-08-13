@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '@ngrx-workshop-app/api-interface';
 import * as fromProducts from '@ngrx-workshop-app/shared/state/products';
@@ -15,11 +14,8 @@ import { map } from 'rxjs/operators';
 export class ProductDetailsComponent implements OnInit {
   product$ = this.store.pipe(select(fromProducts.getSelectedProduct));
 
-  constructor(
-    private store: Store<{}>,
-    private route: ActivatedRoute,
-    private snack: MatSnackBar
-  ) {}
+  constructor(private store: Store<{}>, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.paramMap
@@ -32,8 +28,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.snack.open('Product added to cart successfully!', null, {
-      duration: 1000
-    });
+    this.store.dispatch(
+      ProductActions.addToCart({ productId: product.productId })
+    );
   }
 }

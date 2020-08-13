@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ShippingMethodSelectionDialogComponent } from '@ngrx-workshop-app/cart/shipping-method-selection-dialog/shipping-method-selection-dialog.component';
 import * as fromShipping from '@ngrx-workshop-app/shared/state/shipping';
+import * as fromCart from '@ngrx-workshop-app/shared/state/cart';
 import { select, Store } from '@ngrx/store';
 
 @Component({
@@ -10,7 +11,7 @@ import { select, Store } from '@ngrx/store';
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
-  total = 0;
+  total$ = this.store.select(fromCart.getCartTotal);
   shippingMethod$ = this.store.pipe(
     select(fromShipping.selectSelectedShippingOption)
   );
