@@ -2,8 +2,9 @@ module.exports = {
   name: 'api-interface',
   preset: '../../jest.config.js',
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest'
+    '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/api-interface'
+  coverageDirectory: '../../coverage/libs/api-interface',
+  globals: { 'ts-jest': { tsConfig: '<rootDir>/tsconfig.spec.json' } },
 };

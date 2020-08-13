@@ -94,15 +94,14 @@
               "apps/ngrx-workshop-app/tsconfig.app.json",
               "apps/ngrx-workshop-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ngrx-workshop-app/**"]
+            "exclude": ["**/node_modules/**", "!apps/ngrx-workshop-app/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/ngrx-workshop-app/jest.config.js",
-            "tsConfig": "apps/ngrx-workshop-app/tsconfig.spec.json",
-            "setupFile": "apps/ngrx-workshop-app/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -129,7 +128,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/ngrx-workshop-app-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**", "!apps/ngrx-workshop-app-e2e/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngrx-workshop-app-e2e/**/*"
+            ]
           }
         }
       }
@@ -147,7 +149,8 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": ["apps/api/src/assets"],
+            "buildLibsFromSource": true
           },
           "configurations": {
             "production": {
@@ -176,14 +179,14 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**"]
+            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/api/jest.config.js",
-            "tsConfig": "apps/api/tsconfig.spec.json"
+            "passWithNoTests": true
           }
         }
       }
@@ -201,14 +204,14 @@
               "libs/api-interface/tsconfig.lib.json",
               "libs/api-interface/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api-interface/**"]
+            "exclude": ["**/node_modules/**", "!libs/api-interface/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/api-interface/jest.config.js",
-            "tsConfig": "libs/api-interface/tsconfig.spec.json"
+            "passWithNoTests": true
           }
         }
       }
@@ -226,15 +229,14 @@
               "libs/cart-data-access/tsconfig.lib.json",
               "libs/cart-data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/cart-data-access/**"]
+            "exclude": ["**/node_modules/**", "!libs/cart-data-access/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/cart-data-access/jest.config.js",
-            "tsConfig": "libs/cart-data-access/tsconfig.spec.json",
-            "setupFile": "libs/cart-data-access/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -253,15 +255,14 @@
               "libs/product-data-access/tsconfig.lib.json",
               "libs/product-data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/product-data-access/**"]
+            "exclude": ["**/node_modules/**", "!libs/product-data-access/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/product-data-access/jest.config.js",
-            "tsConfig": "libs/product-data-access/tsconfig.spec.json",
-            "setupFile": "libs/product-data-access/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -280,15 +281,14 @@
               "libs/shipping-data-access/tsconfig.lib.json",
               "libs/shipping-data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shipping-data-access/**"]
+            "exclude": ["**/node_modules/**", "!libs/shipping-data-access/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shipping-data-access/jest.config.js",
-            "tsConfig": "libs/shipping-data-access/tsconfig.spec.json",
-            "setupFile": "libs/shipping-data-access/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
