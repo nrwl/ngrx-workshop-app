@@ -11,24 +11,6 @@ import * as CartActions from './cart.actions';
 
 @Injectable()
 export class CartEffects {
-  loadCart$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CartActions.enterCartPage, AppActions.init),
-      exhaustMap(() =>
-        this.cartService.getItems().pipe(
-          map(items => CartActions.loadCartSuccess({ items })),
-          catchError(() =>
-            of(
-              CartActions.loadCartFailure({
-                error: 'Unable to load cart'
-              })
-            )
-          )
-        )
-      )
-    )
-  );
-
   addToCart$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductActions.addToCart),
@@ -39,6 +21,24 @@ export class CartEffects {
             of(
               CartActions.addToCartFailure({
                 error: 'Unable to add item to cart'
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CartActions.enterCartPage, AppActions.init),
+      exhaustMap(() =>
+        this.cartService.getItems().pipe(
+          map(items => CartActions.loadCartSuccess({ items })),
+          catchError(() =>
+            of(
+              CartActions.loadCartFailure({
+                error: 'Unable to load cart'
               })
             )
           )
